@@ -1,5 +1,5 @@
 import React from "react";
-// import { AiOutlineEdit } from "react-icons/ai";
+import { CiEdit } from "react-icons/ci";
 function BlogPage() {
   return (
     <div className="p-4">
@@ -7,7 +7,7 @@ function BlogPage() {
       <div className="col p-4">
         <label className="col-4">25/01/2013 11.00am</label>
         <label className="col-4">created by saranya</label>
-        <button className=" col-4 btn btn-primary">Edit Post</button>
+        <button className=" col-4 btn btn-primary justify-content-center"> <CiEdit />Edit Post</button>
       </div>
       <img src="phone-banner.jpg" alt="image" className="img-fluid" />
       <p className="p-4">

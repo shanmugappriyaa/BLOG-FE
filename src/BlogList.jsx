@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function BlogList() {
+  let navigate = useNavigate();
   const blogs = [
     {
       img: "blog-1.jpg",
@@ -35,7 +37,7 @@ function BlogList() {
   return (
     <div className="p-2 mx-4">
       {blogs.map((blog, i) => (
-        <div className="card mb-3" key={i}>
+        <div className="card mb-3"  onClick = {()=>navigate('/blog')} key={i}>
           <div className="card-body shadow d-flex">
             <div className="row-4 m-2">
               <img src={blog.img} alt="image" className="img-fluid" />
