@@ -1,6 +1,6 @@
 import React from "react";
 
-function SampleBlog() {
+function BlogList() {
   const blogs = [
     {
       img: "blog-1.jpg",
@@ -34,17 +34,16 @@ function SampleBlog() {
 
   return (
     <div className="p-2 mx-4">
-      <h4>SampleBlog</h4>
       {blogs.map((blog, i) => (
-        <div className="card mb-24" key={i}>
-          <div className="card-body d-flex">
+        <div className="card mb-3" key={i}>
+          <div className="card-body shadow d-flex">
             <div className="row-4 m-2">
               <img src={blog.img} alt="image" className="img-fluid" />
             </div>
             <div>
-              <div className="row">
+              <div className="row ">
                 <h3 className="col-6"> {blog.title}</h3>
-                <label className="col-6 text-align-end">
+                <label className="col-6 d-flex justify-content-end">
                   created by {blog.createdby}
                 </label>
               </div>
@@ -60,4 +59,4 @@ function SampleBlog() {
   );
 }
 
-export default SampleBlog;
+export default BlogList;
