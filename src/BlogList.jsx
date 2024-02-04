@@ -1,43 +1,32 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Container, Button, Link } from "react-floating-action-button";
+import { FaPlus } from "react-icons/fa6";
+import moment from "moment";
 
 function BlogList() {
   let navigate = useNavigate();
-  const blogs = [
-    {
-      img: "blog-1.jpg",
-      title: "DWDigitaWeb Blog",
-      createdby: "saranya",
-      createdat: "25/01/2013 11.00am",
-      desc: "DWDigitaWeb is an inbound marketing agency. Their blog educates marketers on useful inbound tactics to help them grow their business and drive organic traffic. They write about lead generation, SEO, and how to use your blog to convert readers into customers.",
-    },
-    {
-      img: "blog-1.jpg",
-      title: "DWDigitaWeb Blog",
-      createdby: "raja",
-      createdat: "25/01/2013 10.15am",
-      desc: "DWDigitaWeb is an inbound marketing agency. Their blog educates marketers on useful inbound tactics to help them grow their business and drive organic traffic. They write about lead generation, SEO, and how to use your blog to convert readers into customers.",
-    },
-    {
-      img: "blog-1.jpg",
-      title: "DWDigitaWeb Blog",
-      createdby: "aswin",
-      createdat: "26/01/2013 1.00pm",
-      desc: "DWDigitaWeb is an inbound marketing agency. Their blog educates marketers on useful inbound tactics to help them grow their business and drive organic traffic. They write about lead generation, SEO, and how to use your blog to convert readers into customers.",
-    },
-    {
-      img: "blog-1.jpg",
-      title: "DWDigitaWeb Blog",
-      createdby: "shanmu",
-      createdat: "26/01/2013 4.00pm",
-      desc: "DWDigitaWeb is an inbound marketing agency. Their blog educates marketers on useful inbound tactics to help them grow their business and drive organic traffic. They write about lead generation, SEO, and how to use your blog to convert readers into customers.",
-    },
-  ];
+  let userData = JSON.parse(sessionStorage.getItem("userData"));
+  const [blogs,setBlogs] =useState([]);
+  const getBlogs = async() => {
+    try {
+      const res = await axios.get('/blog');
+    
+      setBlogs(res?.data?.allBlogs)
+    } catch (error) {
+     console.log(error) 
+    }
+  }
+  useEffect(()=>{
+    getBlogs()
+ },[])
+ 
+  return <>
 
-  return (
     <div className="p-2 mx-4">
-      {blogs.map((blog, i) => (
-        <div className="card mb-3"  onClick = {()=>navigate('/blog')} key={i}>
+      { blogs && blogs.map((blog, i) => (
+        <div className="card mb-3"  onClick = {()=>navigate(`/blog/${blog._id}`)} key={i}>
           <div className="card-body shadow d-flex">
             <div className="row-4 m-2">
               <img src={blog.img} alt="image" className="img-fluid" />
@@ -50,15 +39,25 @@ function BlogList() {
                 </label>
               </div>
               <div className="row">
-                <label className="">{blog.createdat}</label>
-                <p className="card-text mt-4">{blog.desc}</p>
+                <label className="">{moment(blog.createdAt).format('DD MMM YYYY')}</label>
+        
+                <p className="card-text mt-4">{blog.shortDesc}</p>
               </div>
             </div>
           </div>
         </div>
       ))}
+          {userData?.firstName ?  (  <Container>
+          <Button
+            tooltip="Create a New Note!"
+            onClick={() => navigate("/createBlog")}
+          >
+            <FaPlus />
+          </Button>
+        </Container>
+          ) :""}
     </div>
-  );
+    </>
 }
 
 export default BlogList;

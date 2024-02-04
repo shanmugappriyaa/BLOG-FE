@@ -1,20 +1,31 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Header from './Header'
+import React, { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import Header from "./Header";
 
 function Layout() {
-  return  <>
-    <Header />
-  
+  const location = useLocation();
+  const [screen, setScreen] = useState(
+    location.pathname === "/login" || location.pathname === "/registration"
+  );
 
-    <div className='d-flex justify-content-center'>
-      <div className='col-9 '>
-      <Outlet />
+  useEffect(() => {
+    setScreen(
+      location.pathname === "/login" || location.pathname === "/registration"
+    );
+  }, [location]);
+  return (
+    <>
+      {!screen && <Header />}
+
+      <div class={!screen ? "container" : "container login-bg"}>
+        <div className="row d-flex justify-content-center">
+          <div className={screen ? "col-12 min-vh-100" : "col-9"}>
+            <Outlet />
+          </div>
+        </div>
       </div>
-    </div>
- 
     </>
-    
+  );
 }
 
-export default Layout
+export default Layout;

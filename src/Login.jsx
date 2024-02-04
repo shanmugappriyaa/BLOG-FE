@@ -1,30 +1,94 @@
-import React from 'react'
-import {  useNavigate } from 'react-router-dom'
+import axios from "axios";
+import React, { useState } from "react";
+import { ImBlogger2 } from "react-icons/im";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
-    let navigate = useNavigate();
-    function handleLogin(){
-        navigate('/createBlog');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  let navigate = useNavigate();
+  let handleLogin = async (ev) => {
+    ev.preventDefault();
+    try {
+      let res = await axios.post("user/login", { email, password });
+      if (res.status == 200) {
+        sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("userData", JSON.stringify(res.data.userData));
+        //   if (res.data.userData.role === "admin") {
+        //     navigate("/dashboard");
+        //   } else {
+        navigate("/bloglist");
+      }
+      // } else {
+      //   alert("Login Fails");
+      // }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
     }
+  };
+
   return (
-    <div className='d-flex row '>
-        <div className='d-flex justify-content-center m-4'>
-            <h4> Login </h4>   
+    <>
+      <ToastContainer position="top-right" autoClose={2000} />
+      <div className="d-flex">
+        <div className="col-6 text-align-center p-2">
+          <h4
+            className="text-white show-hover"
+            onClick={() => navigate("/bloglist")}
+          >
+            {" "}
+            <ImBlogger2 /> My-Blogs
+          </h4>
         </div>
-        <div className='d-flex row-8  justify-content-center'>
-            <form>
-                <div className='d-flex row'>
-                <label className='form-label'>User Name</label>
-                <input  type='text' placeholder='user name'/>
-                <label className='form-label'>Password</label>
-                <input  type='text' placeholder='Password'/>
-                </div>
-              
-                <button className='btn btn-primary m-4' onClick={handleLogin}> sign-in</button>
-            </form>
-</div>
-    </div>
-  )
+        <div className="col-6 d-flex min-vh-100  justify-content-end align-items-center">
+          <div className="col-11 p-5">
+            <div className="card border-1">
+              <div className="card-body shadow">
+                <form>
+                  <div className="d-flex row p-5 justify-content-center">
+                    <h4 className="text-center"> Login </h4>
+                    <div className="mt-3">
+                      <label className="form-label">User Name</label>
+                      <input
+                        type="text"
+                        placeholder="Enter your email id"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="form-control"
+                      />
+                      <label className="form-label mt-3">Password</label>
+                      <input
+                        type="text"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="form-control"
+                      />
+                    </div>
+
+                    <button
+                      type="button"
+                      className="btn btn-primary custom-btn m-4"
+                      onClick={(e) => handleLogin(e)}
+                    >
+                      {" "}
+                      sign-in
+                    </button>
+                    <div className="text-center">
+                      Don't you have account? 
+                      <Link to={'/registration'}>Register</Link> here
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default Login
+export default Login;

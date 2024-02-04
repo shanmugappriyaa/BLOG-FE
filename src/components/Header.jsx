@@ -1,39 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ImBlogger2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import useLogout from "../hooks/useLogout";
 function Header() {
   let navigate = useNavigate();
+  let logout = useLogout();
+  let userData = JSON.parse(sessionStorage.getItem("userData"));
+  console.log("userData===>", userData);
+  // useEffect({
+
+  // },[])
   return (
     <div className="">
       <nav class="navbar navbar-light bg-primary p-2">
         <div className="col-6 text-align-center p-2">
-          <h4 onClick={() => navigate("/bloglist")}>
+          <h4 className="text-white" onClick={() => navigate("/bloglist")}>
             {" "}
-            <ImBlogger2 /> Shanmu-Blog
+            <ImBlogger2 /> My-Blogs
           </h4>
         </div>
         <div className="col-6 d-flex justify-content-end">
-          <div>
-            <button onClick={() => navigate("/login")} className="p-2">
-              {" "}
-              Login
-            </button>
-            <button onClick={() => navigate("/registration")} className="p-2">
-              {" "}
-              Registration
-            </button>
-          </div>
-          <div className="">
-            <h6> username</h6>
-            <button onClick={""} className="p-2">
-              {" "}
-              create post
-            </button>
-            <button onClick={() => navigate("/registration")} className="p-2">
-              {" "}
-              logout
-            </button>
-          </div>
+          {userData?.firstName ? (
+            <>
+              
+              <button onClick={logout} className="btn btn-danger">
+                {" "}
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="btn btn-warning me-4"
+                onClick={() => navigate("/login")}
+              >
+                {" "}
+                Login
+              </button>
+              <button
+                className="btn btn-warning "
+                onClick={() => navigate("/registration")}
+              >
+                {" "}
+                Registration
+              </button>
+            </>
+          )}
         </div>
       </nav>
     </div>
