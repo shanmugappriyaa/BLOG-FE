@@ -67,7 +67,7 @@ function Login() {
                       />
                       <label className="form-label mt-3">Password</label>
                       <input
-                        type="text"
+                        type="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
