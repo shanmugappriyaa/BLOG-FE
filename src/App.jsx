@@ -10,6 +10,7 @@ import Layout from "./components/Layout";
 import Dashboard from "./Dashboard";
 import EditBlog from './EditBlog'
 import axios from "axios";
+import UserBlog from "./UserBlog";
 function App() {
   axios.defaults.baseURL = "http://localhost:8000/";
   axios.defaults.withCredentials = true;
@@ -24,6 +25,7 @@ function App() {
             <Route path="/bloglist" element={<BlogList />} />
 <Route path='/dashboard' element={<Dashboard />}/>
             <Route path="/createBlog" element={<CreateBlog />} />
+            <Route path="/userBlog" element={<UserBlog />} />
             <Route path="/login" element={<Login />} />
             <Route path="/editblog/:id" element={<EditBlog />} />
             <Route path="/registration" element={<Registration />} />

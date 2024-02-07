@@ -22,7 +22,9 @@ function Header() {
         <div className="col-6 d-flex justify-content-end">
           {userData?.firstName ? (
             <>
-              
+              <h3 onClick={() => navigate("/userBlog")} className="userbutton">
+                {userData?.firstName}
+              </h3>
               <button onClick={logout} className="btn btn-danger">
                 {" "}
                 Log Out

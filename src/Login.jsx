@@ -4,6 +4,7 @@ import { ImBlogger2 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +16,8 @@ function Login() {
       if (res.status == 200) {
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("userData", JSON.stringify(res.data.userData));
-        //   if (res.data.userData.role === "admin") {
+        console.log("loginres--->",res)
+        //  if (res.data.userData.role === "admin") {
         //     navigate("/dashboard");
         //   } else {
         navigate("/bloglist");
@@ -24,7 +26,7 @@ function Login() {
       //   alert("Login Fails");
       // }
     } catch (error) {
-      toast.error(error.response.data.message);
+      // toast.error(error.response.data.message);
       console.log(error);
     }
   };

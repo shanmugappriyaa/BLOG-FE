@@ -4,7 +4,7 @@ import useLogout from "./hooks/useLogout";
 import { useNavigate, useParams } from "react-router-dom";
 import AxiosService from "./utils/ApiService";
 import { ToastContainer, toast } from "react-toastify";
-
+import moment from "moment";
 function BlogPage() {
   let params = useParams();
   let navigate = useNavigate();
@@ -40,8 +40,11 @@ function BlogPage() {
         <>
           <h4 className="text-align-center">{blog.title}</h4>
           <div className="col p-4">
-            <label className="col-4">{blog.createdAt}</label>
-            <label className="col-4">created by saranya</label>
+            <div className="d-flex">
+            <label className="col-6 d-flex justify-content-start">createdAt : {moment(blog.createdAt).format("DD MMM YYYY")}</label>
+            <label className="col-6 d-flex justify-content-end">created by {blog.createdUserName}</label>
+            </div>
+           
             {userData?._id === blog.createdBy && (
               <button
                 onClick={() => navigate(`/editblog/${blog._id}`)}
@@ -53,7 +56,7 @@ function BlogPage() {
               </button>
             )}
           </div>
-          <img src={blog.imageUrl} alt="image" className="img-fluid" />
+          <img src={blog.imageUrl?.[0]?.url} alt="image" className="img-fluid" />
           <p className="p-4">{blog.desc}()</p>
         </>
       )}

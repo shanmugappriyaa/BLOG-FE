@@ -12,3 +12,12 @@
 .custom-btn{
     width: 200px;
 }
+.imgage-thumbnail{
+    height:200px;
+    width:200px;
+    object-fit: cover;
+}
+.userbutton{
+    color: white;
+    margin-right: 20px;
+}

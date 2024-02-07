@@ -6,15 +6,16 @@ import { FaPlus } from "react-icons/fa6";
 import moment from "moment";
 import AxiosService from "./utils/ApiService";
 
-function BlogList() {
+function UserBlog() {
   let navigate = useNavigate();
   let userData = JSON.parse(sessionStorage.getItem("userData"));
   const [blogs, setBlogs] = useState([]);
   const getBlogs = async () => {
     try {
-      const res = await AxiosService.get("/blog");
+      const id = userData._id;
+      const res = await AxiosService.get(`/blog/userblogs/${id}`);
       console.log("res==>", res);
-      setBlogs(res?.data?.allBlogs);
+      setBlogs(res?.data?.blogs);
     } catch (error) {
       console.log(error);
     }
@@ -60,16 +61,15 @@ function BlogList() {
     <>
       <div className="p-2 mx-4">
         {/* <!-- Example single danger button --> */}
-        {userData?.role === "admin" && userData?.firstName && (
-          <div className="d-flex justify-content-end mb-4">
-            <select value={value} onChange={handleChange}>
-              <option value="">All</option>
-              <option value="PENDING">Pending</option>
-              <option value="APPROVED">Approved</option>
-              <option value="REJECTED">Rejected</option>
-            </select>
-          </div>
-        )}
+
+        <div className="d-flex justify-content-end mb-4">
+          <select value={value} onChange={handleChange}>
+            <option value="">All</option>
+            <option value="PENDING">Pending</option>
+            <option value="APPROVED">Approved</option>
+            <option value="REJECTED">Rejected</option>
+          </select>
+        </div>
         {blogs &&
           blogs.map((blog, i) => (
             <div
@@ -91,9 +91,19 @@ function BlogList() {
                 <div>
                   <div className="row ">
                     <h3 className="col-9"> {blog.title}</h3>
-                    <label className="col-3 d-flex justify-content-end">
-                      created by {blog.createdUserName}
-                    </label>
+                    {blog.blogstatus === "PENDING" ? (
+                      <p className="col-3 d-flex justify-content-end fw-bolder text-warning">
+                        {blog.blogstatus}
+                      </p>
+                    ) : blog.blogstatus === "REJECTED" ? (
+                      <p className="col-3 d-flex justify-content-end fw-bolder text-danger">
+                        {blog.blogstatus}
+                      </p>
+                    ) : (
+                      <p className="col-3 d-flex justify-content-end fw-bolder text-success">
+                        {blog.blogstatus}
+                      </p>
+                    )}
                   </div>
                   <div className="row">
                     <label className="">
@@ -101,49 +111,37 @@ function BlogList() {
                     </label>
 
                     <p className="card-text mt-4">{blog.shortDesc}</p>
-                    {blog?.blogstatus == "REJECTED" && (
-                      <p className="fw-bolder text-danger">
-                        {" "}
-                        {blog.blogstatus}
-                      </p>
-                    )}
+                    {/* <p className="fw-bolder text-danger">
+                      {" "}
+                      {blog.blogstatus}
+                    </p> */}
+                    {/* {blog?.blogstatus == "REJECTED" && (
+                  )} */}
                   </div>
 
-                  {blog?.blogstatus == "PENDING" && (
-                    <div className="d-flex justify-content-end">
-                      <button
-                        className="btn btn-success me-5"
-                        onClick={(e) => statusChange(blog._id, e, "APPROVED")}
-                      >
-                        Approved
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={(e) => statusChange(blog._id, e, "REJECTED")}
-                      >
-                        Rejected
-                      </button>
-                    </div>
-                  )}
+                  {/* {blog?.blogstatus == "PENDING" && (
+                  <div className="d-flex justify-content-end">
+                    <button
+                      className="btn btn-success me-5"
+                      onClick={(e) => statusChange(blog._id, e, "APPROVED")}
+                    >
+                      Approved
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={(e) => statusChange(blog._id, e, "REJECTED")}
+                    >
+                      Rejected
+                    </button>
+                  </div>
+                )} */}
                 </div>
               </div>
             </div>
           ))}
-        {userData?.role !== "admin" && userData?.firstName ? (
-          <Container>
-            <Button
-              tooltip="Create a New Note!"
-              onClick={() => navigate("/createBlog")}
-            >
-              <FaPlus />
-            </Button>
-          </Container>
-        ) : (
-          ""
-        )}
       </div>
     </>
   );
 }
 
-export default BlogList;
+export default UserBlog;
