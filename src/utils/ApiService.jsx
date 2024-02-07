@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+export const base_url =
+process.env.NODE_ENV === "development" ? "http://localhost:8000/" : "https://shamu-blog.onrender.com/";
+
 const AxiosService = axios.create({
-    baseURL:`${import.meta.env.VITE_API_URL}`,
+    baseURL:base_url,
     headers:{
         'Content-Type':"application/json",
     }

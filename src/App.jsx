@@ -11,8 +11,9 @@ import Dashboard from "./Dashboard";
 import EditBlog from './EditBlog'
 import axios from "axios";
 import UserBlog from "./UserBlog";
+import { base_url } from "./utils/ApiService";
 function App() {
-  axios.defaults.baseURL = "http://localhost:8000/";
+  axios.defaults.baseURL = base_url;
   axios.defaults.withCredentials = true;
   return (
     <>
