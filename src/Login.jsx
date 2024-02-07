@@ -16,7 +16,7 @@ function Login() {
       if (res.status == 200) {
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("userData", JSON.stringify(res.data.userData));
-        console.log("loginres--->",res)
+        console.log("loginres--->", res);
         //  if (res.data.userData.role === "admin") {
         //     navigate("/dashboard");
         //   } else {
@@ -35,7 +35,7 @@ function Login() {
     <>
       <ToastContainer position="top-right" autoClose={2000} />
       <div className="d-flex">
-        <div className="col-6 text-align-center p-2">
+        <div className="col-6 text-align-center p-2 d-flex max-vh-90 flex-column justify-content-center">
           <h4
             className="text-white show-hover"
             onClick={() => navigate("/bloglist")}
@@ -43,6 +43,11 @@ function Login() {
             {" "}
             <ImBlogger2 /> My-Blogs
           </h4>
+          <h1 className="text-white fw-bolder mt-5">Hang onto your memories </h1>
+          <p className="text-white">
+            Save the moments that matter.Blogger lets you safely store thousands
+            of posts, photos, and more with Google.
+          </p>
         </div>
         <div className="col-6 d-flex min-vh-100  justify-content-end align-items-center">
           <div className="col-11 p-5">
@@ -79,8 +84,8 @@ function Login() {
                       sign-in
                     </button>
                     <div className="text-center">
-                      Don't you have account? 
-                      <Link to={'/registration'}>Register</Link> here
+                      Don't you have account?
+                      <Link to={"/registration"}>Register</Link> here
                     </div>
                   </div>
                 </form>

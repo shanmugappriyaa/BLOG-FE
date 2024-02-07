@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { ImBlogger } from "react-icons/im";
+import { ImBlogger, ImBlogger2 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 function Registration() {
   let navigate = useNavigate();
@@ -25,14 +25,19 @@ function Registration() {
   }
   return (
     <div className="d-flex ">
-      <div className="col-6 text-align-center p-2">
+      <div className="col-6 text-align-center p-2 d-flex max-vh-90 flex-column justify-content-center">
         <h4
           className="text-white show-hover"
           onClick={() => navigate("/bloglist")}
         >
           {" "}
-          <ImBlogger /> My-Blogs
+          <ImBlogger2 /> My-Blogs
         </h4>
+        <h1 className="text-white fw-bolder mt-5">Hang onto your memories </h1>
+        <p className="text-white">
+          Save the moments that matter.Blogger lets you safely store thousands
+          of posts, photos, and more with Google.
+        </p>
       </div>
       <div className="col-6 d-flex min-vh-100  justify-content-end align-items-center">
         <div className="col-10 card border-0 me-5">
