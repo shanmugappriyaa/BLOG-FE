@@ -17,15 +17,13 @@ function Login() {
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("userData", JSON.stringify(res.data.userData));
         console.log("loginres--->", res);
-      
+
         navigate("/bloglist");
+      } else if (res.status == 400) {
+        alert("Login Fails");
       }
-       else if (res.status == 400) {
-        toast.error("Login Fails");
-       }
     } catch (error) {
-      toast.error(error.reponse.data.message);
-      console.log(error);
+      toast.error("Please enter the valid login credential");
     }
   };
 
@@ -41,7 +39,9 @@ function Login() {
             {" "}
             <ImBlogger2 /> My-Blogs
           </h4>
-          <h1 className="text-white fw-bolder mt-5">Hang onto your memories </h1>
+          <h1 className="text-white fw-bolder mt-5">
+            Hang onto your memories{" "}
+          </h1>
           <p className="text-white">
             Save the moments that matter.Blogger lets you safely store thousands
             of posts, photos, and more with Google.
