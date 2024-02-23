@@ -17,8 +17,9 @@ function Login() {
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("userData", JSON.stringify(res.data.userData));
         console.log("loginres--->", res);
+
         navigate("/bloglist");
-      } else {
+      } else if (res.status > 400) {
         alert("Login Fails");
       }
     } catch (error) {
