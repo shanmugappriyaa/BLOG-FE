@@ -5,16 +5,19 @@ import { Container, Button, Link } from "react-floating-action-button";
 import { FaPlus } from "react-icons/fa6";
 import moment from "moment";
 import AxiosService from "./utils/ApiService";
-
+import LoadingSpinner from "./components/Spinner"
 function BlogList() {
   let navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   let userData = JSON.parse(sessionStorage.getItem("userData"));
   const [blogs, setBlogs] = useState([]);
   const getBlogs = async () => {
     try {
+      setIsLoading(true)
       const res = await AxiosService.get("/blog");
       console.log("res==>", res);
       setBlogs(res?.data?.allBlogs);
+      setIsLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +63,7 @@ function BlogList() {
     <>
       <div className="p-2 mx-4">
         {/* <!-- Example single danger button --> */}
+         {isLoading && <LoadingSpinner /> }
         {userData?.role === "admin" && userData?.firstName && (
           <div className="d-flex justify-content-end mb-4">
             <select value={value} onChange={handleChange}>

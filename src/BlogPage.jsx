@@ -8,13 +8,16 @@ import moment from "moment";
 function BlogPage() {
   let params = useParams();
   let navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [blog, setBlog] = useState();
   let userData = JSON.parse(sessionStorage.getItem("userData"));
 
   let getBlog = async () => {
     try {
+      setIsLoading(true)
       let res = await AxiosService.get(`/blog/${params.id}`);
       setBlog(res.data.blog);
+      setIsLoading(true)
     } catch (error) {
       toast.error(error.response.data.message);
       // if(error.response.status===401)

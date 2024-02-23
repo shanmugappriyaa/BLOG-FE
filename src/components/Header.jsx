@@ -5,11 +5,10 @@ import useLogout from "../hooks/useLogout";
 function Header() {
   let navigate = useNavigate();
   let logout = useLogout();
+  
   let userData = JSON.parse(sessionStorage.getItem("userData"));
   console.log("userData===>", userData);
-  // useEffect({
-
-  // },[])
+ 
   return (
     <div className="">
       <nav class="navbar navbar-light bg-primary p-2">

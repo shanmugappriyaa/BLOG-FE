@@ -17,16 +17,14 @@ function Login() {
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("userData", JSON.stringify(res.data.userData));
         console.log("loginres--->", res);
-        //  if (res.data.userData.role === "admin") {
-        //     navigate("/dashboard");
-        //   } else {
+      
         navigate("/bloglist");
       }
-      // } else {
-      //   alert("Login Fails");
-      // }
+       else if (res.status == 400) {
+        toast.error("Login Fails");
+       }
     } catch (error) {
-      // toast.error(error.response.data.message);
+      toast.error(error.reponse.data.message);
       console.log(error);
     }
   };
