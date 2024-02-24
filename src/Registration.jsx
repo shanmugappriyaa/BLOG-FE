@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { ImBlogger, ImBlogger2 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
+import SimpleAxiosService from "./utils/SimpleApiService";
 function Registration() {
   let navigate = useNavigate();
   const [fname, setFname] = useState("");
@@ -10,7 +11,7 @@ function Registration() {
   const [password, setPassword] = useState("");
   async function handleReg(ev) {
     ev.preventDefault();
-    const userDeatils = await axios.post("user/signup", {
+    const userDeatils = await SimpleAxiosService.post("user/signup", {
       firstName: fname,
       lastName: lname,
       email: email,

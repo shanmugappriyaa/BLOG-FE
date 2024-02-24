@@ -85,15 +85,15 @@ function BlogList() {
               key={i}
             >
               <div className="card-body shadow d-flex">
-                <div className="row-4 m-2">
+                <div className="row-4 me-3">
                   <img
                     src={blog.imageUrl?.[0]?.url}
                     alt="image"
                     className="imgage-thumbnail"
                   />
                 </div>
-                <div>
-                  <div className="row ">
+                <div className="col-8">
+                  <div className="row">
                     <h3 className="col-9"> {blog.title}</h3>
                     <label className="col-3 d-flex justify-content-end">
                       created by {blog.createdUserName}

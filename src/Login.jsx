@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import SimpleAxiosService from "./utils/SimpleApiService";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +13,7 @@ function Login() {
   let handleLogin = async (ev) => {
     ev.preventDefault();
     try {
-      let res = await axios.post("user/login", { email, password });
+      let res = await SimpleAxiosService.post("user/login", { email, password });
       if (res.status == 200) {
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("userData", JSON.stringify(res.data.userData));
