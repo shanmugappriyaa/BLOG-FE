@@ -35,7 +35,7 @@ function CreateBlog() {
     const formData = new FormData();
     formData.set("images", img[0]);
     try {
-      const res = await axios.put(`blog/upload/${blogId}`, formData);
+      const res = await AxiosService.put(`blog/upload/${blogId}`, formData);
       console.log(res);
       if (res.status == 200) {
         toast.success("blog created successfully! Pls wait for Admin Approval");
